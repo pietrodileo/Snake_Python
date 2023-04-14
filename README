@@ -1,0 +1,44 @@
+#Snake Game in Python
+Questo è un gioco Snake scritto in Python utilizzando la libreria Pygame. Il gioco funziona con i tasti freccia per muovere il serpente e il serpente cresce ogni volta che mangia il cibo. Il gioco termina quando il serpente collide con i bordi della finestra o con il proprio corpo.
+
+#Requisiti
+Python 3
+Pygame
+
+#Installazione
+Clonare o scaricare il repository.
+Installare le dipendenze utilizzando il comando 
+pip install -r requirements.txt
+.
+Eseguire il gioco utilizzando il comando 
+python3 snake.py
+.
+
+#Utilizzo
+Utilizzare i tasti freccia per muovere il serpente.
+Il serpente cresce ogni volta che mangia il cibo.
+Il gioco termina quando il serpente collide con i bordi della finestra o con il proprio corpo.
+
+#Contributi
+Sono benvenuti i contributi a questo progetto. Se vuoi contribuire, per favore segui questi passaggi:
+
+Forka il progetto.
+Crea un branch per il tuo contributo (
+git checkout -b my-new-feature
+).
+Fai i tuoi cambiamenti e commit (
+git commit -am 'Add some feature'
+).
+Pusha il branch (
+git push origin my-new-feature
+).
+Crea una nuova Pull Request.
+
+#Licenza
+Questo progetto è rilasciato sotto la licenza MIT. Vedi il file 
+LICENSE
+ per maggiori informazioni.
+
+#Crediti
+Questo gioco è stato scritto da Nome Cognome.
+

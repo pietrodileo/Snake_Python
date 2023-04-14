@@ -1,0 +1,20 @@
+{
+    "SCREEN_WIDTH": 800,
+    "SCREEN_HEIGHT": 600,
+    "BLOCK_SIZE": 10,
+    "STARTING_FPS": 15,
+    "STARTING_LIVES": 2,
+    "BLACK": [0, 0, 0],
+    "WHITE": [255, 255, 255],
+    "RED": [255, 0, 0],
+    "GREEN": [0, 255, 0],
+    "SNAKE_GREEN": [10, 80, 10],
+    "GREY": [80,50,60],
+    "STARTING_DIRECTION": "right",
+    "NUM_FRUITS": 2,
+    "NUM_BOMB": 0,
+    "NUM_OBSTACLES": 0,
+    "GAME_SURFACE_DISTANCE": 50,
+    "INFO_SURFACE_HEIGHT":50,
+    "TEXT_DISTANCE": 10
+}
