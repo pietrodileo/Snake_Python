@@ -1,6 +1,6 @@
 import random
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLOCK_SIZE, RED, GREY, BLACK, GAME_SURFACE_DISTANCE, INFO_SURFACE_HEIGHT
+from constants import SCREEN_WIDTH, BLOCK_SIZE, RED, GREY, BLACK, GAME_SURFACE_HEIGHT
 
 # Definizione della classe Food
 class Food:
@@ -16,7 +16,7 @@ class Food:
     def spawn_fruit(self, bombs):
         while True:
             x = random.randint(0, SCREEN_WIDTH/BLOCK_SIZE-1) * BLOCK_SIZE
-            y = random.randint(0, (SCREEN_HEIGHT-GAME_SURFACE_DISTANCE-INFO_SURFACE_HEIGHT)/BLOCK_SIZE-1) * BLOCK_SIZE
+            y = random.randint(0, (GAME_SURFACE_HEIGHT)/BLOCK_SIZE-1) * BLOCK_SIZE
             rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
             if bombs == 0:
                 # all'inizializzazione del gioco
@@ -57,7 +57,7 @@ class Bomb:
         # il ciclo while serve perché continuo a cercare un elemento valido finchè non smettono di sovrapporsi gli elementi
         while True:
             x = random.randint(0, SCREEN_WIDTH/BLOCK_SIZE-1) * BLOCK_SIZE
-            y = random.randint(0, (SCREEN_HEIGHT-GAME_SURFACE_DISTANCE-INFO_SURFACE_HEIGHT)/BLOCK_SIZE-1) * BLOCK_SIZE
+            y = random.randint(0, (GAME_SURFACE_HEIGHT)/BLOCK_SIZE-1) * BLOCK_SIZE
             rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
             # Controlla che la bomba non si sovrapponga alla frutta o ad altre bombe
             if not any(rect.colliderect(fruit) for fruit in food.fruits) and not any(rect.colliderect(bomb) for bomb in self.bombs): 
@@ -94,7 +94,7 @@ class Obstacles:
         # Genera un ostacolo
         obstacle = []
         length = random.randint(3, 6)  # Lunghezza dell'ostacolo
-        x, y = random.randint(0, SCREEN_WIDTH - BLOCK_SIZE), random.randint(0, SCREEN_HEIGHT - INFO_SURFACE_HEIGHT - GAME_SURFACE_DISTANCE - BLOCK_SIZE)
+        x, y = random.randint(0, SCREEN_WIDTH - BLOCK_SIZE), random.randint(0, GAME_SURFACE_HEIGHT - BLOCK_SIZE)
         direction = random.choice(["horizontal", "vertical"])  # Direzione dell'ostacolo
         if direction == "vertical":
             # Ostacolo orizzontale
@@ -106,7 +106,7 @@ class Obstacles:
                     # Aggiunge un blocco in alto
                     obstacle.insert(0, [x, y - BLOCK_SIZE])
                     y -= BLOCK_SIZE
-                elif random.random() < 0.65 and y + BLOCK_SIZE * (length + 1) < SCREEN_HEIGHT - INFO_SURFACE_HEIGHT - GAME_SURFACE_DISTANCE and [x, y + BLOCK_SIZE * length] not in obstacle:
+                elif random.random() < 0.65 and y + BLOCK_SIZE * (length + 1) < GAME_SURFACE_HEIGHT and [x, y + BLOCK_SIZE * length] not in obstacle:
                     # Aggiunge un blocco in basso
                     obstacle.append([x, y + BLOCK_SIZE * length])
                 else:

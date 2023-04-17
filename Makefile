@@ -36,7 +36,42 @@ commit:
 	git commit -m "Aggiornamento del codice - $(date)"
 # To enter a custom commit message, simply execute the 'git commit' command without the '-m' option
 
+# Target per fare il push delle modifiche al repository remoto
+push:
+	@echo "Pushing changes to remote repository"
+	git push --set-upstream origin master
+
 # Target per eliminare il virtual environment
 clean:
 	@echo "Removing the Virtual Environment"
 	rmdir /s /q $(VENV_NAME) __pycache__
+
+# Target for displaying the remote repository URLs
+remote:
+	@echo "Displaying remote repository URLs"
+	git remote -v
+
+# Target for displaying the commit log
+log:
+	@echo "Displaying commit log"
+	git log
+
+# Target for creating a new branch
+new-branch:
+	@echo "Creating new branch"
+	git branch $(name)
+
+# Target for checking out a branch
+checkout:
+	@echo "Checking out branch"
+	git checkout $(name)
+
+# Target for pushing a branch to the remote repository
+push-branch:
+	@echo "Pushing branch to remote repository"
+	git push -u $(remote) $(name)
+
+# To use these targets, you need to specify the name of the branch and the name of the remote repository 
+# as variables when you run the make command
+# make checkout name=new-feature
+# make push-branch name=new-feature remote=origin

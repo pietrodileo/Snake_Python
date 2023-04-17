@@ -1,15 +1,17 @@
 import pygame
 import datetime
 import os
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, GREEN, SNAKE_GREEN, RED, GREY, BLOCK_SIZE, GAME_SURFACE_DISTANCE, TEXT_DISTANCE, INFO_SURFACE_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, GREEN, SNAKE_GREEN,\
+    RED, GREY, BLOCK_SIZE, GAME_SURFACE_DISTANCE, TEXT_DISTANCE, INFO_SURFACE_HEIGHT,GAME_SURFACE_HEIGHT,\
+        TITLE_FONT_SIZE,MAXLENGTH_FONT_SIZE,INSTRUCTIONS_FONT_SIZE
 
 # Funzione per la schermata iniziale
 def show_start_screen(screen):
     # Crea il font per il titolo
-    title_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 50)
+    title_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), TITLE_FONT_SIZE)
 
     # Crea il font per il testo di istruzioni
-    instructions_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 30)
+    instructions_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), INSTRUCTIONS_FONT_SIZE)
 
     # Crea il testo del titolo
     title_text = title_font.render("Snake Game", True, GREEN)
@@ -44,11 +46,11 @@ def show_start_screen(screen):
 # Funzione per la schermata di Game Over
 def show_game_over_screen(screen, snake):
     # Crea il font per il titolo
-    title_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 50)
+    title_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), TITLE_FONT_SIZE)
     # Crea il font per il testo di istruzioni
-    instructions_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 30)
+    instructions_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), INSTRUCTIONS_FONT_SIZE)
     # Crea il font per la lunghezza massima ottenuto
-    maxlength_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 38)
+    maxlength_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), MAXLENGTH_FONT_SIZE)
 
     # Crea il testo del titolo
     title_text = title_font.render("GAME OVER!", True, GREEN)
@@ -95,7 +97,7 @@ def draw_screen(screen, snake, food, bombs, obstacles):
     screen.fill(BLACK)
 
     # Crea la superficie di gioco
-    game_surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT - INFO_SURFACE_HEIGHT - GAME_SURFACE_DISTANCE))
+    game_surface = pygame.Surface((SCREEN_WIDTH, GAME_SURFACE_HEIGHT))
 
     # Riempie la superficie di gioco di verde
     game_surface.fill(GREEN)
@@ -114,7 +116,7 @@ def draw_screen(screen, snake, food, bombs, obstacles):
 
     # Disegna il contorno bianco all'interno del rettangolo nero
     contour_thickness = 2
-    pygame.draw.rect(screen, WHITE, pygame.Rect(0, GAME_SURFACE_DISTANCE, SCREEN_WIDTH, SCREEN_HEIGHT - INFO_SURFACE_HEIGHT - GAME_SURFACE_DISTANCE), contour_thickness)
+    pygame.draw.rect(screen, WHITE, pygame.Rect(0, GAME_SURFACE_DISTANCE, SCREEN_WIDTH, GAME_SURFACE_HEIGHT), contour_thickness)
 
     # Crea la superficie delle informazioni
     info_surface = pygame.Surface((SCREEN_WIDTH, INFO_SURFACE_HEIGHT))

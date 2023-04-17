@@ -1,7 +1,7 @@
 import pygame
 import random
 import os 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, STARTING_FPS, NUM_FRUITS, NUM_BOMB, NUM_OBSTACLES, WHITE, BLACK
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, STARTING_FPS, NUM_FRUITS, NUM_BOMB, NUM_OBSTACLES, WHITE, BLACK, NEWLIFE_FONT_SIZE, SPEEDUP_FONT_SIZE
 from snake import Snake
 from food import Food, Bomb, Obstacles
 from screens import show_start_screen, show_game_over_screen, draw_screen
@@ -41,8 +41,8 @@ while True:
     if game_over:
         show_game_over_screen(screen, snake)
         # resetto i parametri per un eventuale New Game 
-        food, bombs, snake, game_over, num_fruits_eaten,\
-            fps, speed_up_timer, newLife_timer = init_game(NUM_FRUITS, NUM_BOMB, NUM_OBSTACLES)
+        food, bombs, obstacles, snake, game_over, num_fruits_eaten, \
+            fps, speed_up_timer,newLife_timer = init_game(NUM_FRUITS, NUM_BOMB, NUM_OBSTACLES)
     
     # Gestione degli eventi
     for event in pygame.event.get():
@@ -93,13 +93,13 @@ while True:
         # aumenta la velocità del gioco ogni 5 frutti mangiati
         if num_fruits_eaten % 4 == 0:
             fps += 3 
-            SpeedUpfont = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 30)
+            SpeedUpfont = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), SPEEDUP_FONT_SIZE)
             speed_up_timer = pygame.time.get_ticks()
             speed_up_text = SpeedUpfont.render("Speed Up!!!", True, BLACK)
         # aumenta una vita ogni 10 frutti mangiati
         if num_fruits_eaten % 10 == 0:
             snake.lives += 1
-            newLife_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), 40)
+            newLife_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), NEWLIFE_FONT_SIZE)
             newLife_timer = pygame.time.get_ticks()
             newLife_text = newLife_font.render("NEW LIFE!!!", True, WHITE)
 

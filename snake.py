@@ -1,5 +1,6 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLOCK_SIZE, STARTING_DIRECTION, GREEN, STARTING_LIVES, INFO_SURFACE_HEIGHT, GAME_SURFACE_DISTANCE
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLOCK_SIZE, STARTING_DIRECTION,\
+    GREEN, STARTING_LIVES, INFO_SURFACE_HEIGHT, GAME_SURFACE_DISTANCE, GAME_SURFACE_HEIGHT
 
 # Definizione della classe Snake
 class Snake:
@@ -49,7 +50,7 @@ class Snake:
     def check_tailEat_or_borderCollision(self):
         # verifica collisione con i bordi
         x, y = self.body[0]
-        if x < 0 or x >= SCREEN_WIDTH or y < 0 or y >= SCREEN_HEIGHT - INFO_SURFACE_HEIGHT - GAME_SURFACE_DISTANCE or y > SCREEN_HEIGHT - INFO_SURFACE_HEIGHT - GAME_SURFACE_DISTANCE - BLOCK_SIZE:
+        if x < 0 or x >= SCREEN_WIDTH or y < 0 or y >= GAME_SURFACE_HEIGHT or y > GAME_SURFACE_HEIGHT - BLOCK_SIZE:
             self.lives -= 1
             if self.lives == 0:
                 return True
