@@ -73,12 +73,17 @@ while True:
         game_over = True
     
     # se il serpente mangia un frutto
-    if food.check_collision(snake):
+    if (points := food.check_collision(snake)):
         snake.grow()
         # crea un frutto che sostituisce quello mangiato
         food.spawn_fruit(bombs)
         # aumento il punteggio 
-        snake.score += 10
+        snake.score += points
+        if points == 50:
+            snake.lives += 1
+            newLife_font = pygame.font.Font(os.path.join("fonts", "PressStart2P-Regular.ttf"), NEWLIFE_FONT_SIZE)
+            newLife_timer = pygame.time.get_ticks()
+            newLife_text = newLife_font.render("NEW LIFE!!!", True, WHITE)
         # Aumenta il numero delle bombe man mano che il serpente cresce
         num_fruits_eaten += 1
         # ogni 2 frutti mangiati inserisci una nuova bomba

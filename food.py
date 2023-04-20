@@ -1,12 +1,13 @@
 import random
 import pygame
-from constants import SCREEN_WIDTH, BLOCK_SIZE, RED, GREY, BLACK, GAME_SURFACE_HEIGHT
+from constants import SCREEN_WIDTH, BLOCK_SIZE, RED, GREY, BLACK, YELLOW, GAME_SURFACE_HEIGHT
 
 # Definizione della classe Food
 class Food:
     def __init__(self, num_fruits, bombs):
         self.num_fruits = num_fruits
         self.fruits = []
+        self.golden_fruit_probability = 0.1
         # Carica l'immagine della frutta
         #self.fruit_image = pygame.image.load("apple.png")
         #self.fruit_image.set_colorkey(BLACK)        
@@ -20,27 +21,42 @@ class Food:
             rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
             if bombs == 0:
                 # all'inizializzazione del gioco
-                self.fruits.append(rect)
+                points = 10
+                self.fruits.append((rect,points)) 
                 break
             else:
                 # Controlla che la frutta non si sovrapponga ad altre frutte o alle bombe
-                if not any(rect.colliderect(fruit) for fruit in self.fruits) and not any(rect.colliderect(bomb) for bomb in bombs.bombs):
-                    self.fruits.append(rect)
+                condition1 = not any(rect.colliderect(fruit) for fruit, points in self.fruits)
+                condition2 = not any(rect.colliderect(bomb) for bomb in bombs.bombs)
+                if condition1 and condition2:
+                    # Genera casualmente un frutto dorato con una certa probabilità
+                    if random.random() < self.golden_fruit_probability:
+                        points = 50
+                    else:
+                        points = 10
+                    self.fruits.append((rect, points))
                     break
 
     def draw(self, screen):
-        for fruit in self.fruits:
-            # Usa un puntino rosso
-            pygame.draw.rect(screen, RED, pygame.Rect(fruit.x, fruit.y, BLOCK_SIZE, BLOCK_SIZE))
-            # Carica un'immagine
-            # screen.blit(self.fruit_image, (fruit.x, fruit.y))
+        for fruit, points in self.fruits:
+            if points == 10:
+                # Usa un puntino rosso
+                pygame.draw.rect(screen, RED, pygame.Rect(fruit.x, fruit.y, BLOCK_SIZE, BLOCK_SIZE))
+                # Carica un'immagine
+                # screen.blit(self.fruit_image, (fruit.x, fruit.y))
+            elif points == 50:
+                # Usa un puntino giallo per i frutti dorati
+                pygame.draw.rect(screen, YELLOW, pygame.Rect(fruit.x, fruit.y, BLOCK_SIZE, BLOCK_SIZE))
+                # Carica l'immagine del frutto dorato
+                # screen.blit(self.golden_fruit_image, (fruit.x, fruit.y))
+
 
     def check_collision(self, snake):
-        for fruit in self.fruits:
+        for fruit, points in self.fruits:
             if snake.rect.colliderect(fruit):
-                self.fruits.remove(fruit)
-                return True
-        return False
+                self.fruits.remove((fruit, points))
+                return points
+        return 0
         
 # Definizione della classe Bomb   
 class Bomb:
@@ -60,7 +76,7 @@ class Bomb:
             y = random.randint(0, (GAME_SURFACE_HEIGHT)/BLOCK_SIZE-1) * BLOCK_SIZE
             rect = pygame.Rect(x, y, BLOCK_SIZE, BLOCK_SIZE)
             # Controlla che la bomba non si sovrapponga alla frutta o ad altre bombe
-            if not any(rect.colliderect(fruit) for fruit in food.fruits) and not any(rect.colliderect(bomb) for bomb in self.bombs): 
+            if not any(rect.colliderect(fruit) for fruit, points in food.fruits) and not any(rect.colliderect(bomb) for bomb in self.bombs): 
                 self.bombs.append(rect)
                 break
     
